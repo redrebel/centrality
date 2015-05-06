@@ -1,5 +1,7 @@
 package betweenness;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -23,8 +25,32 @@ public class BetweennessCentrality implements Centrality{
 		while(queue.keySet().size()  > 0){
 			Node next = queue.keySet().iterator().next();
 			
-			if(next)
+			if(next.key.equals(to)){
+				nodeTo = next;
+				break;
+			}
+			
+			for(Node n:graph.adjacents(next.key)){
+				if(!visited.contains(n)){
+					if(queue.get(n) == null){
+						queue.put(n,mock);
+					}
+					n.addParent(next);
+				}
+			}
+			
+			// removing the node from queue
+			queue.remove(next);
+			visited.add(next);
 		}
+		
+		if(nodeTo == null){
+			return Collections.emptyList();
+		}
+		
+		// Now 
+		List<List<String>> result = new ArrayList<List<String>>();
+		dfs(nodeTo, result, new LinkedList<>()())
 	}
 	
 	private float calCentrality(Graph graph, String i, int n){

@@ -1,4 +1,5 @@
 package main;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
@@ -30,4 +31,11 @@ public class Graph {
 		System.out.println(adjacencyList);
 	}
 	
+	public Set<Node> adjacents(String v){
+		Set<Node> nodes = adjacencyList.get(v);
+		if(nodes == null){
+			nodes = Collections.emptySet();
+		}
+		return nodes;
+	}
 }
