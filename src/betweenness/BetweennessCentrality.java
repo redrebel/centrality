@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +36,7 @@ public class BetweennessCentrality implements Centrality{
 					if(queue.get(n) == null){
 						queue.put(n,mock);
 					}
+					
 					n.addParent(next);
 				}
 			}
@@ -50,14 +52,37 @@ public class BetweennessCentrality implements Centrality{
 		
 		// Now 
 		List<List<String>> result = new ArrayList<List<String>>();
-		dfs(nodeTo, result, new LinkedList<>()())
+		dfs(nodeTo, result, new LinkedList<String>());
+		
+		return result;
+	}
+	
+	private void dfs(Node n, List<List<String>> result, LinkedList<String> path){
+		path.addFirst(n.key);
+        if (n.getParents().size() == 0) {
+            // base case: we came to target vertex
+            result.add(new ArrayList<String>(path));
+        }
+        for (Node p : n.getParents()) {
+            dfs(p, result, path);
+        }
+        // do not forget to remove the processed element from path
+        path.removeFirst();
 	}
 	
 	private float calCentrality(Graph graph, String i, int n){
+		Integer j = new Integer(i)+4;
+		if(j > n)
+			j=1;
+		
 		float f;
-		f = (2*10 / ((n-1)*(n-2)));
+		List<List<String>> list = findAllShortestPaths(graph, i, j.toString() );
+		
+		f = (float)(8.0*list.size() / ((n-1)*(n-2)));
+		System.out.println("calCentrality : "+f+", list.size() :" + list);
 		return f;
 	}
+	
 	public Map<String, Float> getCentralityList(Graph graph, int n){
 		for(int i = 1; i <= n; i++){
 			String str = String.valueOf(i);

@@ -33,7 +33,8 @@ public class CentralityMain {
 			graph.printAdjacencyList();
 			
 			BetweennessCentrality bc = new BetweennessCentrality();
-			bc.getCentralityList(graph, nodeNum);
+			Map<String,Float> map = bc.getCentralityList(graph, nodeNum);
+			System.out.println(map);
 			br.close();
 		}
 		catch(Exception e){

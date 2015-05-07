@@ -28,13 +28,21 @@ public class Node {
 	}
 	
 	public void addParent(Node n){
+		//System.out.println("addParent : " );
 		if(n.level == level){
+			//System.out.println("addParent : !! " );
 			return;
 		}
 		parents.add(n);
 		
 		level = n.level + 1;
+		
 	}
+	
+	public List<Node> getParents(){
+		return parents;
+	}
+	
 	public boolean equals(Object n){
 		return key.equals(((Node)n).key);
 	}
