@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Node {
-	List<Node> parents = new ArrayList<Node>();
+	List<Node>  parents = new ArrayList<Node>();
 	private static Map<String, Node> map = new HashMap<String, Node>();
 	public final String key;
 	private int level = -1;
@@ -22,9 +22,13 @@ public class Node {
 		return res;
 	}
 	
+	public static void clear(){
+		map = new HashMap<String, Node>();
+	}
+	
 	public Node(String str, int level){
 		key = str;
-		this.level = -1;
+		this.level = level;
 	}
 	
 	public void addParent(Node n){
@@ -39,7 +43,7 @@ public class Node {
 		
 	}
 	
-	public List<Node> getParents(){
+	public  List<Node> getParents(){
 		return parents;
 	}
 	
