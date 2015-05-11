@@ -8,9 +8,9 @@ import java.util.Set;
 public class Graph {
 	Map<String, Set<Node>> adjacencyList = new HashMap<String, Set<Node>>();
 	public void add(String from, String to){
-		System.out.println("addEdge(from="+from+", to="+ to+")");
+		//System.out.println("addEdge(from="+from+", to="+ to+")");
 		addEdge(from, to);
-		System.out.println("addEdge(to="+to+", from="+ from+")");
+		//System.out.println("addEdge(to="+to+", from="+ from+")");
 		addEdge(to, from);
 	}
 	
@@ -19,12 +19,12 @@ public class Graph {
 		
 		if(list == null){
 			list = new LinkedHashSet<Node>();
-			System.out.println("make list:" + from);
+			//System.out.println("make list:" + from);
 			adjacencyList.put(from, list);
 		}
 		
 		list.add(Node.get(to));
-		System.out.println(from + "\'s Adjacency List " + adjacencyList.get(from));
+		//System.out.println(from + "\'s Adjacency List " + adjacencyList.get(from));
 	}
 	
 	public void printAdjacencyList(){

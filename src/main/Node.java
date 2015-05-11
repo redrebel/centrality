@@ -14,7 +14,7 @@ public class Node {
 	public static Node get(String str){
 		Node res = 	map.get(str);
 		if(res == null){
-			System.out.println("make node:" +str);
+			//System.out.println("make node:" +str);
 			res = new Node(str, -1);
 			map.put(str, res);
 		}
@@ -23,7 +23,17 @@ public class Node {
 	}
 	
 	public static void clear(){
-		map = new HashMap<String, Node>();
+	  //System.out.println(map);
+	  for(String key : map.keySet()){
+        map.get(key).level = -1;
+        map.get(key).clearParent();
+        //System.out.println(map.get(key));
+	  }
+	  
+	}
+	
+	public void clearParent(){
+	  parents = new ArrayList<Node>();
 	}
 	
 	public Node(String str, int level){
@@ -46,6 +56,7 @@ public class Node {
 	public  List<Node> getParents(){
 		return parents;
 	}
+
 	
 	public boolean equals(Object n){
 		return key.equals(((Node)n).key);

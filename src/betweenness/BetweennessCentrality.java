@@ -17,7 +17,7 @@ import main.Node;
 public class BetweennessCentrality {
 	
 	private  Object mock = new Object();
-	private  Map<String, Float> cl = new HashMap<String, Float>();
+	private  Map<Integer, Float> cl = new HashMap<Integer, Float>();
 	
 	public List<List<String>> findAllShortestPaths(Graph graph, String from, String to){
 		LinkedHashMap<Node, Object> queue = new LinkedHashMap<Node, Object>();
@@ -57,7 +57,7 @@ public class BetweennessCentrality {
 		dfs(nodeTo, result, new LinkedList<String>());
 		
 		//queue = null;
-		
+		Node.clear();
 		return result;
 	}
 	
@@ -77,28 +77,66 @@ public class BetweennessCentrality {
         path.removeFirst();
 	}
 	
-	private float calCentrality(Graph graph, String i, int n){
-		Integer j = new Integer(i)+1;
-		if(j > n)
-			j=1;
-		
-		float f;
-		
-		List<List<String>> list = findAllShortestPaths(graph, i, j.toString() );
-		System.out.println("list.size() :" + list.size());
-		System.out.println("list : " + list);
-		f = (float)(2.0*list.size() / ((n-1)*(n-2)));
-		System.out.println("calCentrality : "+i + " to "+ j + "("+f+")");
-		return f;
+	private int numShortestPathViaI(List<List<String>> list, int i){
+	  int cnt = 0;
+	  for(List<String> path : list){
+	    if(path.contains(Integer.toString(i)))
+	        cnt++;
+	  }
+	  return cnt;
 	}
 	
-	public Map<String, Float> getCentralityList(Graph graph, int totalNodeNum){
-		for(int i = 1; i <= totalNodeNum; i++){
-			Node.clear();
-			String str = String.valueOf(i);
-			cl.put(str, calCentrality(graph,str,totalNodeNum));
+	/**
+	 * i ~ j 까지의 AllShortestPath를 구한다.
+	 * @param graph
+	 * @param i
+	 * @param n
+	 * @return
+	 */
+	private float calCentrality(Graph graph, int i, int cntOfNode){
+	  int[][] searched;
+	  searched = new int[cntOfNode+1][cntOfNode+1];
+	  
+	  float f = 0;
+	  for(int j=1; j<=cntOfNode;j++){
+	    if(i==j){
+          continue;
+        }
+	    for(int k=1; k<=cntOfNode; k++){
+	      if(j==k || i==k || searched[j][k] == 1){
+	          continue;
+	        }
+	        List<List<String>> list = findAllShortestPaths(graph, Integer.toString(j), Integer.toString(k) );
+	        int cntPathViaI =  numShortestPathViaI(list, i);
+	        f = f+(cntPathViaI / list.size());
+	        //System.out.println("from : "+ j + " to "+ k 
+	        //    + " list.size() :" + list.size() + " list : " + list 
+	        //    + "viaI : " + cntPathViaI + " f : " + f );
+	        searched[k][j] = 1;
+	    }
+	    
+	  }
+	  return (float)(2*f / ((cntOfNode-1)*(cntOfNode-2)));
+	}
+	
+	/**
+	 * 1부터 N까지의 Centrality 를 구한다.
+	 * @param graph
+	 * @param cntOfNode
+	 * @return
+	 */
+	public Map<Integer, Float> getCentralityList(Graph graph, int cntOfNode){
+		for(int i = 1; i <= cntOfNode; i++){
+		  //System.out.println("\ncalCentrality : ["+i + "]");
+			cl.put(i, calCentrality(graph,i,cntOfNode));
+			
 		}
-		//cl.put("8", calCentrality(graph,"8",totalNodeNum));
+		//cl.put("5", calCentrality(graph,"5",totalNodeNum));
+/*	  System.out.println(findAllShortestPaths(graph, "1", "2"));
+	  System.out.println(findAllShortestPaths(graph, "1", "3"));
+	  System.out.println(findAllShortestPaths(graph, "1", "4"));
+	  System.out.println(findAllShortestPaths(graph, "1", "5"));
+	  System.out.println(findAllShortestPaths(graph, "1", "6"));*/
 		return cl;
 	}
 }
