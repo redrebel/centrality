@@ -23,7 +23,18 @@ public class Node {
 	}
 	
 	public static void clear(){
-		map = new HashMap<String, Node>();
+		//map = new HashMap<String, Node>();
+	  //System.out.println(map);
+	  for(String key : map.keySet()){
+        map.get(key).level = -1;
+        map.get(key).clearParent();
+        //System.out.println(map.get(key));
+	  }
+	  
+	}
+	
+	public void clearParent(){
+	  parents = new ArrayList<Node>();
 	}
 	
 	public Node(String str, int level){
@@ -46,6 +57,7 @@ public class Node {
 	public  List<Node> getParents(){
 		return parents;
 	}
+
 	
 	public boolean equals(Object n){
 		return key.equals(((Node)n).key);

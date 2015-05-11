@@ -98,6 +98,10 @@ class test {
             Set<Node> nodes = adjacencyList.get(v);
             return (Set<Node>) (nodes == null ? Collections.emptySet() : nodes);
         }
+        
+        public void printAdjacencyList(){
+          System.out.println(adjacencyList);
+      }
     }
 
     private static class Node {
@@ -145,7 +149,7 @@ class test {
 
         @Override
         public String toString() {
-            return key;
+          return key+"("+level+")";
         }
     }
 
@@ -163,9 +167,15 @@ class test {
         graph.add("8", "6");
         graph.add("6", "7");
         graph.add("7", "5");
-
+        //graph.printAdjacencyList();
+        System.out.println(findAllShortestPaths(graph, "1", "2"));
+        System.out.println(findAllShortestPaths(graph, "1", "3"));
+        System.out.println(findAllShortestPaths(graph, "1", "4"));
+        System.out.println(findAllShortestPaths(graph, "1", "5"));
+        System.out.println(findAllShortestPaths(graph, "1", "6"));
         System.out.println(findAllShortestPaths(graph, "1", "7"));
-
+        //graph.printAdjacencyList();
+        
         graph = new Graph();
 
         graph.add("A", "B");
