@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Map;
 
+import Closeness.ClosenessCentrality;
 import betweenness.BetweennessCentrality;
 
 
@@ -38,15 +39,15 @@ public class CentralityMain {
     graph.add("2", "3");
     graph.add("2", "4");
     graph.add("2", "5");
-    graph.add("4", "7");
+/*    graph.add("4", "7");
     graph.add("5", "7");
     graph.add("3", "6");
     graph.add("3", "8");
     graph.add("8", "6");
     graph.add("6", "7");
-    graph.add("7", "5");
+    graph.add("7", "5");*/
     
-    return 8;
+    return 5;
   }
   
   public static void printMaxBC(Map<Integer,Float> map){
@@ -70,10 +71,15 @@ public class CentralityMain {
 			//System.out.println(Node.map);
 			//graph.printAdjacencyList();
 			
-			BetweennessCentrality bc = new BetweennessCentrality();
+			/*BetweennessCentrality bc = new BetweennessCentrality();
 			Map<Integer,Float> map = bc.getCentralityList(graph, nodeCnt);
 			System.out.println(map);
 			printMaxBC(map);
+			*/
+			ClosenessCentrality cc = new ClosenessCentrality();
+			Map<Integer,Float> map = cc.getCentralityList(graph, nodeCnt);
+            //System.out.println(map);
+			
 			//graph.printAdjacencyList();
 			
 		}
