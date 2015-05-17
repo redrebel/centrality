@@ -3,5 +3,5 @@ package main;
 import java.util.Map;
 
 public interface Centrality {
-	public Map<String, Float> getCentralityList(Graph graph, int n);
+	public Map<String, Double> getCentralityList(Graph graph, int n);
 }

@@ -4,11 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import main.Centrality;
 import main.Graph;
 
-public class BetweennessCentrality {
-
-  private Map<Integer, Float> cl = new HashMap<Integer, Float>();
+public class BetweennessCentrality implements Centrality{
 
   private int numShortestPathViaI(List<List<String>> list, int i) {
     int cnt = 0;
@@ -27,11 +26,11 @@ public class BetweennessCentrality {
    * @param n
    * @return
    */
-  private float calCentrality(Graph graph, int i, int cntOfNode) {
+  private double calCentrality(Graph graph, int i, int cntOfNode) {
     int[][] searched;
     searched = new int[cntOfNode + 1][cntOfNode + 1];
 
-    float f = 0;
+    double f = 0;
     for (int j = 1; j <= cntOfNode; j++) {
       if (i == j) {
         continue;
@@ -53,7 +52,7 @@ public class BetweennessCentrality {
       }
 
     }
-    return (float) (2 * f / ((cntOfNode - 1) * (cntOfNode - 2)));
+    return (2 * f / ((cntOfNode - 1) * (cntOfNode - 2)));
   }
 
   /**
@@ -63,10 +62,11 @@ public class BetweennessCentrality {
    * @param cntOfNode
    * @return
    */
-  public Map<Integer, Float> getCentralityList(Graph graph, int cntOfNode) {
+  public Map<String, Double> getCentralityList(Graph graph, int cntOfNode) {
+    Map<String, Double> cl = new HashMap<String, Double>();
     for (int i = 1; i <= cntOfNode; i++) {
       // System.out.println("\ncalCentrality : ["+i + "]");
-      cl.put(i, calCentrality(graph, i, cntOfNode));
+      cl.put(Integer.toString(i), calCentrality(graph, i, cntOfNode));
 
     }
     return cl;

@@ -12,8 +12,33 @@ import java.util.Map;
 import java.util.Set;
 
 public class Graph {
+  int nodeCnt;
+  double[][] adjacencyMatrix;
   private Object mock = new Object();
   Map<String, Set<Node>> adjacencyList = new HashMap<String, Set<Node>>();
+
+  public void setNodeCnt(int nodeCnt) {
+    this.nodeCnt = nodeCnt;
+    adjacencyMatrix = new double[nodeCnt][nodeCnt];
+    for (int i = 0; i < nodeCnt; i++) {
+      for (int j = 0; j < nodeCnt; j++) {
+        adjacencyMatrix[i][j] = 0.0;
+      }
+    }
+  }
+
+  public void printAdjacencyMatrix() {
+    for (int i = 0; i < nodeCnt; i++) {
+      for (int j = 0; j < nodeCnt; j++) {
+        System.out.print(adjacencyMatrix[i][j] + ", ");
+      }
+      System.out.println();
+    }
+  }
+
+  public double[][] getAdjacencyMatrix() {
+    return adjacencyMatrix;
+  }
 
   public List<List<String>> findAllShortestPaths(String from, String to) {
     LinkedHashMap<Node, Object> queue = new LinkedHashMap<Node, Object>();
@@ -57,7 +82,8 @@ public class Graph {
   }
 
   /**
-   * 깊이우선 탐색을 한다.
+   * 깊이 우선 탐색을 한다.
+   * 
    * @param n
    * @param result
    * @param path
@@ -81,6 +107,9 @@ public class Graph {
     addEdge(from, to);
     // System.out.println("addEdge(to="+to+", from="+ from+")");
     addEdge(to, from);
+
+    adjacencyMatrix[Integer.parseInt(from) - 1][Integer.parseInt(to) - 1] = 1.0;
+    adjacencyMatrix[Integer.parseInt(to) - 1][Integer.parseInt(from) - 1] = 1.0;
   }
 
   private void addEdge(String from, String to) {
