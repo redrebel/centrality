@@ -1,4 +1,4 @@
-package ccloseness;
+package closeness;
 
 import java.util.HashMap;
 import java.util.List;

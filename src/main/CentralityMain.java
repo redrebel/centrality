@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Map;
 
-import ccloseness.ClosenessCentrality;
+import closeness.ClosenessCentrality;
 import eigenvector.EigenvectorCentrality;
 import betweenness.BetweennessCentrality;
 
