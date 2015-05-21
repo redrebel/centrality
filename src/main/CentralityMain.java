@@ -83,8 +83,8 @@ public class CentralityMain {
     try {
       //
       int nodeCnt;
-      // nodeCnt = setGraphByFile("C:\\input.txt");
-      nodeCnt = setGraphByInline();
+      nodeCnt = setGraphByFile("C:\\input.txt");
+      //nodeCnt = setGraphByInline();
 
       Map<String, Double> map;
 
